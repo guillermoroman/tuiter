@@ -30,7 +30,7 @@ Route::middleware('auth')->group(function () {
 });
 
 Route::resource('tuits', TuitController::class)
-    ->only(['index', 'store'])
+    ->only(['index', 'store', 'edit', 'update'])
     ->middleware(['auth', 'verified']);
 
 require __DIR__.'/auth.php';
