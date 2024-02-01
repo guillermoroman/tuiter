@@ -51,9 +51,11 @@ class TuitController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Tuit $tuit)
+    public function edit(Tuit $tuit): View
     {
-        //
+        $this->authorize('update', $tuit);
+
+        return view('tuits.edit',['tuit' => $tuit] );
     }
 
     /**
@@ -61,7 +63,16 @@ class TuitController extends Controller
      */
     public function update(Request $request, Tuit $tuit)
     {
-        //
+        $this->authorize('update', $tuit);
+
+        $validated = $request->validate([
+            'message' => 'required|string|max:255'
+        ]);
+
+        $tuit->update($validated);
+
+        return redirect(route('tuits.index'));
+
     }
 
     /**
@@ -69,6 +80,10 @@ class TuitController extends Controller
      */
     public function destroy(Tuit $tuit)
     {
-        //
+        $this->authorize('delete', $tuit);
+
+        $tuit->delete();
+
+        return redirect(route('tuits.index'));
     }
 }

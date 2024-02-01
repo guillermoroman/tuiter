@@ -24,11 +24,11 @@
                                 <span class="text-gray-800">{{ $tuit->user->name }}</span>
                                 <small class="ml-2 text-sm text-gray-600">{{ $tuit->created_at->format('j M Y, g:i a') }}</small>
 
-                                {{----}}
+                                {{--
                                 @unless ($tuit->created_at->eq($tuit->updated_at))
                                     <small class="text-sm text-gray-600"> &middot; {{ __('edited') }}</small>
                                 @endunless
-                                {{----}}
+                                --}}
                             </div>
 
                             {{--Edición de tuits si pertenecen al usuario--}}
@@ -45,6 +45,11 @@
                                         <x-dropdown-link :href="route('tuits.edit', $tuit)">
                                             {{ __('Edit') }}
                                         </x-dropdown-link>
+                                        <x-dropdown-link :href="route('tuits.destroy', $tuit)">
+                                            {{ __('Destroy') }}
+                                        </x-dropdown-link>
+
+                                        
                                     </x-slot>
                                 </x-dropdown>
                             @endif
