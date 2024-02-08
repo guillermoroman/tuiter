@@ -45,9 +45,21 @@
                                         <x-dropdown-link :href="route('tuits.edit', $tuit)">
                                             {{ __('Edit') }}
                                         </x-dropdown-link>
+
+                                        {{--Intento simplificado de DELETE con get
                                         <x-dropdown-link :href="route('tuits.destroy', $tuit)">
+                                            @method('delete');
                                             {{ __('Destroy') }}
                                         </x-dropdown-link>
+                                        {{----}}
+
+                                        <form method="POST" action="{{ route('tuits.destroy', $tuit) }}">
+                                            @csrf
+                                            @method('delete')
+                                            <x-dropdown-link :href="route('tuits.destroy', $tuit)" onclick="event.preventDefault(); this.closest('form').submit();">
+                                                {{ __('Delete') }}
+                                            </x-dropdown-link>
+                                        </form>
 
                                         
                                     </x-slot>
