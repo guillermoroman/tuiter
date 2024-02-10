@@ -13,6 +13,21 @@ class User extends Authenticatable
 {
     use HasApiTokens, HasFactory, Notifiable;
 
+    public function followers()
+    {
+        return $this->belongsToMany(User::class, 'followers', 'followed_id', 'follower_id');
+    }
+    // Argumento 1: Clase.
+    // Argumento 2: Nombre tabla.
+    // Argumento 3: Clave foránea sobre la que se establece la relación.
+    // Argumento 4: Clave foránea del objeto de la relación.
+    
+    public function following()
+    {
+        return $this->belongsToMany(User::class, 'followers', 'follower_id', 'followed_id');
+    }
+    
+
     public function tuits(): HasMany
     {
         return $this->hasMany(Tuit::class);
