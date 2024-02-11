@@ -33,4 +33,7 @@ Route::resource('tuits', TuitController::class)
     ->only(['index', 'store', 'edit', 'update', 'destroy'])
     ->middleware(['auth', 'verified']);
 
+
+Route::get('tuits_followed', [TuitController::class, 'tuits_followed']) ->middleware(['auth', 'verified']);
+
 require __DIR__.'/auth.php';
