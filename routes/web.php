@@ -30,17 +30,18 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
+//Rutas para Tuit agrupadas como recurso.
 Route::resource('tuits', TuitController::class)
     ->only(['index', 'store', 'edit', 'update', 'destroy'])
     ->middleware(['auth', 'verified']);
 
+    
 //Ruta a un index que solo muestre los tuits de los usuarios seguidos.
 Route::get('/tuits/followed', [TuitController::class, 'index_followed'])
     ->name('tuits.index_followed')
     ->middleware(['auth', 'verified']);
 
 
-// TODO escribir explicación en guía
 // Ruta para establecer un nuevo Follow
 Route::post('/follow', [FollowController::class, 'store'])
     ->name('follow.store');
