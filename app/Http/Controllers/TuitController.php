@@ -11,11 +11,28 @@ class TuitController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index() :View
+    public function index(): View
     {
         //return "Hola mundo!";
 
         return view('tuits.index', ['tuits' => Tuit::with('user')->latest()->get()]);
+    }
+
+    public function index_followed(): View
+    {
+        // Obtener el ID del usuario actual
+        $userId = auth()->id();
+
+        // Obtener los IDs de los usuarios que el usuario actual sigue
+        $followedUsersIds = auth()->user()->following()->pluck('users.id');
+
+        // Filtrar los tuits para mostrar solo los de los usuarios seguidos
+        $tuits = Tuit::with('user')
+            ->whereIn('user_id', $followedUsersIds)
+            ->latest()
+            ->get();
+
+        return view('tuits_followed.index', ['tuits' => $tuits]);
     }
 
     /**
@@ -55,7 +72,7 @@ class TuitController extends Controller
     {
         $this->authorize('update', $tuit);
 
-        return view('tuits.edit',['tuit' => $tuit] );
+        return view('tuits.edit', ['tuit' => $tuit]);
     }
 
     /**
