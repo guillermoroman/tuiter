@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\TuitController;
+use App\Http\Controllers\FollowController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -33,7 +34,21 @@ Route::resource('tuits', TuitController::class)
     ->only(['index', 'store', 'edit', 'update', 'destroy'])
     ->middleware(['auth', 'verified']);
 
+//Ruta a un index que solo muestre los tuits de los usuarios seguidos.
+Route::get('/tuits/followed', [TuitController::class, 'index_followed'])
+    ->name('tuits.index_followed')
+    ->middleware(['auth', 'verified']);
 
-Route::get('tuits_followed', [TuitController::class, 'tuits_followed']) ->middleware(['auth', 'verified']);
+
+// TODO escribir explicación en guía
+// Ruta para establecer un nuevo Follow
+Route::post('/follow', [FollowController::class, 'store'])
+    ->name('follow.store');
+
+// Ruta para borrar un Follow
+Route::delete('/unfollow/{user}', [FollowController::class, 'destroy'])
+    ->name('follow.destroy');
+
+
 
 require __DIR__.'/auth.php';
