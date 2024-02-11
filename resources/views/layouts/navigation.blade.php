@@ -74,9 +74,18 @@
             <x-responsive-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
                 {{ __('Dashboard') }}
             </x-responsive-nav-link>
+
+            <!-- Enlace a lista de todos los tuits -->
             <x-responsive-nav-link :href="route('tuits.index')" :active="request()->routeIs('tuits.index')">
                 {{ __('Tuits') }}
             </x-responsive-nav-link>
+
+            <!-- Enlace a lista de tuits de usuarios seguidos -->
+            <x-responsive-nav-link :href="route('tuits.index_followed')" :active="request()->routeIs('tuits.index_followed')">
+                {{ __('Followed') }}
+            </x-responsive-nav-link>
+
+
         </div>
 
         <!-- Responsive Settings Options -->
